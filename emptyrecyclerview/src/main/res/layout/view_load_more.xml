@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rll_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_8dp"
+            android:layout_toLeftOf="@+id/tv_loading" />
+
+        <TextView
+            android:id="@+id/tv_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_12sp"
+            android:text="加载中..." />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_loadmore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="加载更多"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_nomoredata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="数据已全部加载"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_onerror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="加载遇到问题，请重试"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_12sp"
+        android:visibility="gone" />
+
+</FrameLayout>
