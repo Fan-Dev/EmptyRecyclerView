@@ -14,11 +14,12 @@ import android.widget.TextView;
 import com.crrain.emptyrecyclerview.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by fan on 2016/10/21.
  */
-public class TestStringAdapter extends RecyclerView.Adapter {
+public class TestStringAdapter extends BaseHeaderFooterAdapter {
     private Context           context;
     private ArrayList<String> datas = new ArrayList<>();
 
@@ -31,24 +32,24 @@ public class TestStringAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseHeaderFooterHolder doCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_test, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void doBindViewHolder(BaseHeaderFooterHolder holder, int position) {
         MyViewHolder myHolder = (MyViewHolder) holder;
         final String data = datas.get(position);
         myHolder.tv_test.setText(data);
     }
 
     @Override
-    public int getItemCount() {
-        return datas.size();
+    public List getData() {
+        return datas;
     }
 
-    final class MyViewHolder extends RecyclerView.ViewHolder {
+    final class MyViewHolder extends BaseHeaderFooterHolder {
         private TextView tv_test;
 
         public MyViewHolder(View itemView) {

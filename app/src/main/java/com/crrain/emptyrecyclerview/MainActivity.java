@@ -3,8 +3,13 @@ package com.crrain.emptyrecyclerview;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
@@ -25,6 +30,9 @@ public class MainActivity extends Activity {
     private TestStringAdapter    testStringAdapter;
     private ArrayList<String>    datas = new ArrayList<>();
     private int                  tempI;
+    private View                 topMenuView, placeHolder;
+    private ViewGroup            headerView, ll_order_by;
+    private int                  recyclerHeaderHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,71 @@ public class MainActivity extends Activity {
         testStringAdapter = new TestStringAdapter(this, datas);
         irv_list_view.setIAdapter(testStringAdapter);
 
+        /**
+         * 支持顶部滑动时，固定菜单
+         * 开始
+         */
+        headerView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.layout_header, null);
+
+        testStringAdapter.addHeaderView(headerView);
+
+        ll_order_by = (ViewGroup) findViewById(R.id.ll_order_by);
+
+        topMenuView = headerView.findViewById(R.id.ll_top_menu);
+
+        topMenuView.findViewById(R.id.tv_test_00001).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "事件响应了", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //处理视图高度
+        topMenuView.post(new Runnable() {
+            @Override
+            public void run() {
+                int height = topMenuView.getMeasuredHeight();
+                placeHolder = new TextView(MainActivity.this);
+                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, height);
+                placeHolder.setLayoutParams(layoutParams);
+                recyclerHeaderHeight = headerView.getMeasuredHeight() - height;
+            }
+        });
+
+        irv_list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            public int totalChange;
+            boolean    isInList = true;
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                totalChange += dy;
+                if (totalChange > recyclerHeaderHeight) {
+                    if (isInList) {
+                        headerView.addView(placeHolder);
+                        headerView.removeView(topMenuView);
+
+                        ll_order_by.addView(topMenuView);
+                        isInList = false;
+                    }
+                } else {
+                    if (!isInList) {
+                        ll_order_by.removeView(topMenuView);
+
+                        headerView.removeView(placeHolder);
+                        headerView.addView(topMenuView);
+                        isInList = true;
+                    }
+                }
+            }
+        });
+        //支持顶部滑动时，固定菜单。结束
+
         irv_list_view.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -96,7 +169,7 @@ public class MainActivity extends Activity {
                 if (startPage == 0) {
                     datas.clear();
                 }
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 20; i++) {
                     datas.add(startPage + "data" + (tempI++));
                 }
                 if (startPage == 3) {
