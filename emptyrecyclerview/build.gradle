@@ -36,3 +36,13 @@ publish {
     desc = '基于IRecyclerView:0.0.3的实现，支持空列表和更简洁的API'//描述，不重要
     website = 'https://github.com/crrain/emptyrecyclerview'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }
+
+
+android.libraryVariants.all { variant ->
+    task("generate${variant.name}Javadoc", type: Javadoc) {
+        description "Generates Javadoc for $variant.name."
+        source = variant.javaCompile.source
+        ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+        classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+    }
+}
