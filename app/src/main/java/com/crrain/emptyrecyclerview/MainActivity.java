@@ -15,6 +15,7 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.crrain.emptyrecyclerview.adapter.TestStringAdapter;
 import com.crrain.emptyrecyclerview.views.GodEmptyRecyclerView;
+import com.crrain.emptyrecyclerview.views.GodRefreshHeaderView;
 import com.crrain.lib.emptyrecyclerview.LoadMoreView;
 import com.crrain.lib.emptyrecyclerview.listener.EmptyViewRetryListener;
 
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
         irv_list_view.setLoadMoreEnabled(true);
         irv_list_view.setRefreshEnabled(true);
 
+        irv_list_view.setRefreshHeaderView(new GodRefreshHeaderView(this));
         loadMoreView = (LoadMoreView) irv_list_view.getLoadMoreFooterView();
 
         irv_list_view.setOnLoadMoreListener(new OnLoadMoreListener() {

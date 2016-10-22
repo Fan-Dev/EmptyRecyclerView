@@ -39,14 +39,52 @@ public class EmptyRecyclerView extends IRecyclerView {
 
     public EmptyRecyclerView(Context context) {
         super(context);
+        init(context);
     }
 
     public EmptyRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public EmptyRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init(context);
+    }
+
+    /**
+     * 初始化
+     * @param context
+     */
+    private void init(Context context) {
+        //默认顶部刷新
+        View refreshHeaderView = getRefreshHeaderView();
+        if (refreshHeaderView == null) {
+            refreshHeaderView = new ClassicRefreshHeaderView(getContext());
+            setRefreshHeaderView(refreshHeaderView);
+        }
+
+        //默认底部加载更多
+        View loadMoreFooterView = getLoadMoreFooterView();
+        if (loadMoreFooterView == null) {
+            loadMoreFooterView = new LoadMoreView(getContext());
+            setLoadMoreFooterView(loadMoreFooterView);
+        }
+    }
+
+    //    @Override
+    //    public void setRefreshEnabled(boolean enabled) {
+    //        super.setRefreshEnabled(enabled);
+    ////        getRefreshHeaderView().setVisibility(enabled ? VISIBLE : GONE);
+    //    }
+    //
+
+    private boolean loadMoreEnabled;
+
+    @Override
+    public void setLoadMoreEnabled(boolean enabled) {
+        super.setLoadMoreEnabled(enabled);
+        loadMoreEnabled = enabled;
     }
 
     private void checkIfEmpty() {
@@ -55,7 +93,12 @@ public class EmptyRecyclerView extends IRecyclerView {
             final boolean emptyViewVisible = adapter.getItemCount() == 0;
             emptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
             //            setVisibility(emptyViewVisible ? GONE : VISIBLE);
-            getLoadMoreFooterView().setVisibility(emptyViewVisible ? GONE : VISIBLE);
+            View loadMoreFooterView = getLoadMoreFooterView();
+            loadMoreFooterView.setVisibility(emptyViewVisible ? GONE : VISIBLE);
+        }
+
+        if (!loadMoreEnabled) {
+            getLoadMoreFooterView().setVisibility(GONE);
         }
     }
 
