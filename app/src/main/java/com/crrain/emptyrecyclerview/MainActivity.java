@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 
         irv_list_view.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMore(View view) {
+            public void onLoadMore() {
                 Log.d("1", "onLoadMore");
                 if (loadMoreView.isLoading()) {
                     return;
