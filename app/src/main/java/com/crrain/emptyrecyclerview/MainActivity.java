@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
             @Override
             public void onRefresh(View view) {
                 startPage = 0;
-                requestData();
+                irv_list_view.setRefreshing(true);
             }
         });
 
@@ -181,6 +181,7 @@ public class MainActivity extends Activity {
                     //还有更多数据
                     loadMoreView.loadMore();
                 }
+                datas.clear();
                 //刷新结束
                 irv_list_view.setRefreshing(false);
                 testStringAdapter.notifyDataSetChanged();

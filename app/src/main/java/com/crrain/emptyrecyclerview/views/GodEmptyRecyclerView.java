@@ -1,6 +1,7 @@
 package com.crrain.emptyrecyclerview.views;
 
 import com.crrain.emptyrecyclerview.R;
+import com.crrain.emptyrecyclerview.adapter.BaseHeaderFooterAdapter;
 import com.crrain.lib.emptyrecyclerview.EmptyRecyclerView;
 
 import android.content.Context;
@@ -44,5 +45,23 @@ public class GodEmptyRecyclerView extends EmptyRecyclerView {
         ll_empty_view = emptyView.findViewById(R.id.ll_empty_view);
         ll_loading_view = emptyView.findViewById(R.id.ll_loading_view);
         setEmptyView(emptyView, ll_empty_view);
+    }
+
+    @Override
+    protected boolean isEmptyView() {
+        Adapter adapter = getIAdapter();
+        if (adapter instanceof BaseHeaderFooterAdapter) {
+            BaseHeaderFooterAdapter baseHeaderFooterAdapter = (BaseHeaderFooterAdapter) adapter;
+            int itemCount = baseHeaderFooterAdapter.getItemCount();
+            if (baseHeaderFooterAdapter.haveFooterView()) {
+                itemCount--;
+            }
+            if (baseHeaderFooterAdapter.haveHeaderView()) {
+                itemCount--;
+            }
+            return itemCount == 0;
+        } else {
+            return super.isEmptyView();
+        }
     }
 }

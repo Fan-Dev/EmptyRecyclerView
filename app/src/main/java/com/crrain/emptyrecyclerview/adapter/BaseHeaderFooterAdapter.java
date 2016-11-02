@@ -17,7 +17,6 @@ public abstract class BaseHeaderFooterAdapter extends
 
     private RecyclerView mRecyclerView;
 
-
     private View         VIEW_FOOTER;
     private View         VIEW_HEADER;
 
@@ -118,7 +117,7 @@ public abstract class BaseHeaderFooterAdapter extends
         }
     }
 
-    protected View getLayout(Context mContext,int layoutId) {
+    protected View getLayout(Context mContext, int layoutId) {
         return LayoutInflater.from(mContext).inflate(layoutId, null);
     }
 
@@ -168,7 +167,7 @@ public abstract class BaseHeaderFooterAdapter extends
         }
     }
 
-    private boolean haveHeaderView() {
+    public boolean haveHeaderView() {
         return VIEW_HEADER != null;
     }
 

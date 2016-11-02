@@ -88,9 +88,8 @@ public class EmptyRecyclerView extends IRecyclerView {
     }
 
     private void checkIfEmpty() {
-        Adapter adapter = getMyAdapter();
-        if (emptyView != null && adapter != null) {
-            final boolean emptyViewVisible = adapter.getItemCount() == 0;
+        if (emptyView != null) {
+            boolean emptyViewVisible = isEmptyView();
             emptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
             //            setVisibility(emptyViewVisible ? GONE : VISIBLE);
             View loadMoreFooterView = getLoadMoreFooterView();
@@ -100,6 +99,15 @@ public class EmptyRecyclerView extends IRecyclerView {
         if (!loadMoreEnabled) {
             getLoadMoreFooterView().setVisibility(GONE);
         }
+    }
+
+    protected boolean isEmptyView() {
+        boolean emptyViewVisible = true;
+        Adapter adapter = getMyAdapter();
+        if (adapter != null) {
+            emptyViewVisible = adapter.getItemCount() == 0;
+        }
+        return emptyViewVisible;
     }
 
     /**
