@@ -187,7 +187,12 @@ public class EmptyRecyclerView extends IRecyclerView {
                     if (emptyViewRetryListener != null) {
                         emptyViewRetryListener.onRefresh(v);
                     }
-                    retryView.setEnabled(true);
+                    retryView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            retryView.setEnabled(true);
+                        }
+                    }, 1000);
                 }
             });
         }
