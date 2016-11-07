@@ -176,16 +176,18 @@ public class EmptyRecyclerView extends IRecyclerView {
         checkIfEmpty();
     }
 
-    public void setEmptyView(View emptyView, View retryView) {
+    public void setEmptyView(View emptyView, final View retryView) {
         setEmptyView(emptyView);
         this.retryView = emptyView;
         if (retryView != null) {
             retryView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    retryView.setEnabled(false);
                     if (emptyViewRetryListener != null) {
                         emptyViewRetryListener.onRefresh(v);
                     }
+                    retryView.setEnabled(true);
                 }
             });
         }
