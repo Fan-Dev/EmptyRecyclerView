@@ -124,7 +124,7 @@ public class EmptyRecyclerView extends IRecyclerView {
      *
      * @return
      */
-    private Adapter getMyAdapter() {
+    public Adapter getMyAdapter() {
         Adapter adapter = null;
         try {
             adapter = getIAdapter();
