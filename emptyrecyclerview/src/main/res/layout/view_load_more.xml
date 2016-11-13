@@ -2,7 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="2dp"
+    android:paddingTop="2dp">
 
     <RelativeLayout
         android:id="@+id/rll_loading"
@@ -23,9 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="加载中..."
             android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/text_size_12sp"
-            android:text="加载中..." />
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <TextView
@@ -35,7 +37,7 @@
         android:layout_gravity="center"
         android:text="加载更多"
         android:textColor="@color/text_color_gray"
-        android:textSize="@dimen/text_size_12sp"
+        android:textSize="12sp"
         android:visibility="gone" />
 
     <TextView
@@ -44,6 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="数据已全部加载"
+        android:textColor="@color/text_color_gray"
+        android:textSize="12sp"
         android:visibility="gone" />
 
     <TextView
@@ -53,7 +57,7 @@
         android:layout_gravity="center"
         android:text="加载遇到问题，请重试"
         android:textColor="@color/text_color_gray"
-        android:textSize="@dimen/text_size_12sp"
+        android:textSize="12sp"
         android:visibility="gone" />
 
 </FrameLayout>
