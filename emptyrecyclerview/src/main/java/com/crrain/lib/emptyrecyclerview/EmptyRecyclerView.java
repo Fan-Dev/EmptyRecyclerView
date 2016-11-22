@@ -52,6 +52,11 @@ public class EmptyRecyclerView extends IRecyclerView {
         init(context);
     }
 
+    @Override
+    public boolean isInEditMode() {
+        return false;
+    }
+
     /**
      * 初始化
      * @param context
