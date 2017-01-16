@@ -52,16 +52,14 @@ public class EmptyRecyclerView extends IRecyclerView {
         init(context);
     }
 
-    @Override
-    public boolean isInEditMode() {
-        return false;
-    }
-
     /**
      * 初始化
      * @param context
      */
     private void init(Context context) {
+        if (isInEditMode()) {
+            return;
+        }
         //默认顶部刷新
         View refreshHeaderView = getRefreshHeaderView();
         if (refreshHeaderView == null) {
